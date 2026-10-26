@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KUIS MENCONGAK - Matematika Kelas X</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Inter & Outfit -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- MathJax for Rendering Math -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #311042 100%);
+            min-height: 100vh;
+            color: #f8fafc;
+        }
+        .heading-font {
+            font-family: 'Outfit', sans-serif;
+        }
+        .glass-card {
+            background: rgba(30, 41, 59, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .timer-progress {
+            transition: width 1s linear;
+        }
+        /* Custom input styling */
+        input:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.5);
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center p-4 md:p-6">
+
+    <div class="w-full max-w-3xl">
+
+        <!-- HEADER -->
+        <header class="text-center mb-6">
+            <div class="inline-flex items-center justify-center p-3 bg-indigo-600/30 rounded-2xl mb-3 border border-indigo-500/30">
+                <svg class="w-8 h-8 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                </svg>
+            </div>
+            <h1 class="heading-font text-3xl md:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-300 to-pink-400">
+                KUIS MENCONGAK
+            </h1>
+            <p class="text-slate-400 text-sm md:text-base mt-1">Matematika Dasar (KaBaTaKu) - Kelas X Teknik Otomotif</p>
+        </header>
+
+        <!-- SCREEN 1: IDENTITAS SISWA -->
+        <div id="screen-start" class="glass-card rounded-3xl p-6 md:p-8 shadow-2xl relative overflow-hidden">
+            <div class="absolute -top-10 -right-10 w-40 h-40 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
+            
+            <h2 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                <svg class="w-5 h-5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                Identitas Peserta Didik
+            </h2>
+
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-slate-300 mb-1">Nama Lengkap</label>
+                    <input type="text" id="student-name" placeholder="Masukkan nama lengkap Anda..." class="w-full bg-slate-800/80 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:border-indigo-500 transition">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-slate-300 mb-1">Kelas</label>
+                    <select id="student-class" class="w-full bg-slate-800/80 border border-slate-700 rounded-xl px-4 py-3 text-white focus:border-indigo-500 transition">
+                        <option value="">-- Pilih Kelas --</option>
+                        <option value="X TO 2">X TO 2</option>
+                        <option value="X TO 3">X TO 3</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- PERATURAN KUIS -->
+            <div class="mt-6 p-4 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-200 text-xs md:text-sm space-y-2">
+                <div class="font-bold flex items-center gap-2 text-amber-400">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                    PERATURAN PENTING:
+                </div>
+                <ul class="list-disc list-inside space-y-1 text-slate-300">
+                    <li>Total waktu kuis: <span class="text-white font-semibold">60 Menit</span> (60 Soal KaBaTaKu).</li>
+                    <li>Tingkat kesulitan soal bertambah secara perlahan (mudah ke sulit).</li>
+                    <li>Waktu per soal disesuaikan otomatis dengan tingkat kesulitan. Soal berpindah otomatis jika waktu habis.</li>
+                    <li><strong class="text-rose-400">Dilarang berpindah/menutup tab aplikasi lain!</strong> Aktivitas mencurigakan akan dicatat pada hasil akhir.</li>
+                    <li>Setiap siswa hanya memiliki <span class="text-white font-semibold">1x kesempatan</span> pengerjaan pada perangkat ini.</li>
+                </ul>
+            </div>
+
+            <button onclick="startQuiz()" class="w-full mt-6 py-4 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-bold text-lg shadow-lg shadow-indigo-500/30 transition transform active:scale-[0.99] flex items-center justify-center gap-2">
+                <span>Mulai Pengerjaan</span>
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+            </button>
+        </div>
+
+        <!-- SCREEN 2: AREA SOAL KUIS -->
+        <div id="screen-quiz" class="hidden glass-card rounded-3xl p-6 md:p-8 shadow-2xl relative">
+            
+            <!-- STATS HEADER -->
+            <div class="flex flex-wrap justify-between items-center gap-4 pb-4 border-b border-slate-700/60 mb-6">
+                <div>
+                    <span class="text-xs uppercase tracking-wider text-slate-400 block">Peserta</span>
+                    <span id="display-identity" class="font-bold text-indigo-300 text-sm md:text-base"></span>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="text-right">
+                        <span class="text-xs uppercase tracking-wider text-slate-400 block">Sisa Total Waktu</span>
+                        <span id="total-timer" class="font-mono font-bold text-emerald-400 text-lg">60:00</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PROGRESS SOAL & TIMER PER SOAL -->
+            <div class="space-y-2 mb-6">
+                <div class="flex justify-between items-center text-xs font-semibold text-slate-400">
+                    <span id="question-number-badge" class="bg-indigo-500/20 text-indigo-300 px-3 py-1 rounded-full border border-indigo-500/30">Soal 1 dari 60</span>
+                    <span id="question-timer-text" class="text-amber-400 font-mono">Waktu Soal: 30 detik</span>
+                </div>
+                <div class="w-full bg-slate-800 rounded-full h-2.5 overflow-hidden">
+                    <div id="question-timer-bar" class="bg-gradient-to-r from-indigo-500 to-amber-400 h-2.5 rounded-full timer-progress" style="width: 100%"></div>
+                </div>
+            </div>
+
+            <!-- TAMPILAN SOAL -->
+            <div class="my-8 text-center min-h-[140px] flex flex-col justify-center items-center bg-slate-800/40 rounded-2xl p-6 border border-slate-700/40">
+                <span class="text-xs font-semibold text-indigo-400 uppercase tracking-widest mb-2">Hitunglah Hasil Dari:</span>
+                <div id="question-text" class="text-3xl md:text-4xl font-extrabold text-white tracking-wide">
+                    <!-- MathJax Latex Content -->
+                </div>
+            </div>
+
+            <!-- INPUT JAWABAN SISWA -->
+            <form onsubmit="submitAnswer(event)" class="space-y-4">
+                <div>
+                    <label for="user-answer-input" class="block text-xs text-slate-400 mb-1 text-center">Tuliskan angka jawaban Anda di bawah ini:</label>
+                    <input type="text" id="user-answer-input" placeholder="Jawaban angka..." autocomplete="off" class="w-full bg-slate-900/90 border-2 border-indigo-500/50 rounded-2xl px-6 py-4 text-center text-2xl font-bold text-white placeholder-slate-600 focus:border-indigo-400 transition">
+                </div>
+                
+                <div class="flex gap-3">
+                    <button type="button" onclick="skipQuestion()" class="w-1/3 py-3.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold transition text-sm">
+                        Lewati Soal
+                    </button>
+                    <button type="submit" class="w-2/3 py-3.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-bold transition shadow-lg shadow-emerald-500/20 flex items-center justify-center gap-2">
+                        <span>Simpan & Lanjut</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7"></path></svg>
+                    </button>
+                </div>
+            </form>
+
+        </div>
+
+        <!-- SCREEN 3: HASIL KUIS -->
+        <div id="screen-result" class="hidden glass-card rounded-3xl p-6 md:p-8 shadow-2xl">
+            <div class="text-center mb-6">
+                <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-emerald-500/20 text-emerald-400 mb-3 border border-emerald-500/30">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                </div>
+                <h2 class="heading-font text-2xl md:text-3xl font-extrabold text-white">Kuis Selesai!</h2>
+                <p class="text-slate-400 text-sm mt-1">Berikut adalah ringkasan hasil pekerjaan Anda</p>
+            </div>
+
+            <!-- CARD RINGKASAN HASIL -->
+            <div class="bg-slate-800/70 rounded-2xl p-6 border border-slate-700 space-y-4 mb-6">
+                <div class="grid grid-cols-2 gap-4 pb-4 border-b border-slate-700/80">
+                    <div>
+                        <span class="text-xs text-slate-400 block">Nama Siswa</span>
+                        <span id="res-name" class="font-semibold text-white"></span>
+                    </div>
+                    <div>
+                        <span class="text-xs text-slate-400 block">Kelas</span>
+                        <span id="res-class" class="font-semibold text-indigo-300"></span>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-3 gap-3 text-center py-2">
+                    <div class="bg-slate-900/60 p-3 rounded-xl border border-slate-700/50">
+                        <span class="text-xs text-slate-400 block">Skor Akhir</span>
+                        <span id="res-score" class="text-2xl font-extrabold text-amber-400">0</span>
+                    </div>
+                    <div class="bg-slate-900/60 p-3 rounded-xl border border-slate-700/50">
+                        <span class="text-xs text-slate-400 block">Benar</span>
+                        <span id="res-correct" class="text-2xl font-extrabold text-emerald-400">0</span>
+                    </div>
+                    <div class="bg-slate-900/60 p-3 rounded-xl border border-slate-700/50">
+                        <span class="text-xs text-slate-400 block">Salah / Lewat</span>
+                        <span id="res-wrong" class="text-2xl font-extrabold text-rose-400">0</span>
+                    </div>
+                </div>
+
+                <!-- PELANGGARAN / SWITCH APP LOG -->
+                <div id="cheat-warning-box" class="p-3.5 rounded-xl bg-slate-900/80 border text-xs leading-relaxed">
+                    <!-- Status Pelanggaran Aplikasi -->
+                </div>
+            </div>
+
+            <!-- RINCIAN JAWABAN SISTEMATIS (TANPA PEMBAHASAN) -->
+            <h3 class="text-lg font-bold text-white mb-3 flex items-center gap-2">
+                <svg class="w-5 h-5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
+                Rekapitulasi Jawaban
+            </h3>
+            
+            <div id="answers-recap-list" class="max-h-64 overflow-y-auto space-y-2 pr-1 custom-scrollbar mb-6">
+                <!-- Dynamic Items -->
+            </div>
+
+            <p class="text-center text-xs text-slate-500 italic">
+                *Tunjukkan layar ini kepada guru pengampu untuk pencatatan nilai.
+            </p>
+        </div>
+
+    </div>
+
+    <!-- DIALOG MODAL / ALERT CUSTOM -->
+    <div id="modal-alert" class="hidden fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-slate-800 border border-slate-700 rounded-2xl p-6 max-w-sm w-full text-center shadow-2xl">
+            <div id="modal-icon" class="w-12 h-12 rounded-full bg-rose-500/20 text-rose-400 mx-auto flex items-center justify-center mb-3">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+            </div>
+            <h3 id="modal-title" class="text-lg font-bold text-white mb-2">Pemberitahuan</h3>
+            <p id="modal-message" class="text-sm text-slate-300 mb-5"></p>
+            <button onclick="closeModal()" class="w-full py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-sm transition">
+                Mengerti
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // DATA 60 SOAL DARI LEVEL MUDAH SAMPAI SANGAT TINGGI (DURASI ELEGAN WAKTU AUTOMATIS)
+        const quizQuestions = [
+            // Mudahnya Soal 1-15 (Waktu per soal: 25-35s)
+            { id: 1, question: "Hitunglah hasil dari: $5 + 3$", answer: "8", duration: 30 },
+            { id: 2, question: "Hitunglah hasil dari: $12 - 4$", answer: "8", duration: 30 },
+            { id: 3, question: "Hitunglah hasil dari: $6 \\times 7$", answer: "42", duration: 30 },
+            { id: 4, question: "Hitunglah hasil dari: $36 \\div 6$", answer: "6", duration: 30 },
+            { id: 5, question: "Hitunglah hasil dari: $0 + 15$", answer: "15", duration: 25 },
+            { id: 6, question: "Hitunglah hasil dari: $0 \\times 24$", answer: "0", duration: 25 },
+            { id: 7, question: "Hitunglah hasil dari: $-5 + 8$", answer: "3", duration: 35 },
+            { id: 8, question: "Hitunglah hasil dari: $4 + (-9)$", answer: "-5", duration: 35 },
+            { id: 9, question: "Hitunglah hasil dari: $-3 + (-6)$", answer: "-9", duration: 35 },
+            { id: 10, question: "Hitunglah hasil dari: $7 - (-2)$", answer: "9", duration: 35 },
+            { id: 11, question: "Hitunglah hasil dari: $-8 - 3$", answer: "-11", duration: 35 },
+            { id: 12, question: "Hitunglah hasil dari: $-4 - (-4)$", answer: "0", duration: 35 },
+            { id: 13, question: "Hitunglah hasil dari: $-5 \\times 4$", answer: "-20", duration: 35 },
+            { id: 14, question: "Hitunglah hasil dari: $-6 \\times (-3)$", answer: "18", duration: 35 },
+            { id: 15, question: "Hitunglah hasil dari: $-28 \\div 7$", answer: "-4", duration: 35 },
+
+            // Tingkat Sedang Soal 16-35 (Waktu per soal: 45-60s)
+            { id: 16, question: "Hitunglah hasil dari: $-40 \\div (-8)$", answer: "5", duration: 40 },
+            { id: 17, question: "Hitunglah hasil dari: $0 \\div (-9)$", answer: "0", duration: 30 },
+            { id: 18, question: "Hitunglah hasil dari: $14 + (-14)$", answer: "0", duration: 30 },
+            { id: 19, question: "Hitunglah hasil dari: $2 + 3 \\times 4$", answer: "14", duration: 45 },
+            { id: 20, question: "Hitunglah hasil dari: $10 - 6 \\div 2$", answer: "7", duration: 45 },
+            { id: 21, question: "Hitunglah hasil dari: $15 \\div 3 \\times 2$", answer: "10", duration: 45 },
+            { id: 22, question: "Hitunglah hasil dari: $-6 + 2 \\times 5$", answer: "4", duration: 50 },
+            { id: 23, question: "Hitunglah hasil dari: $12 - (-4) \\times 2$", answer: "20", duration: 50 },
+            { id: 24, question: "Hitunglah hasil dari: $-18 \\div 3 + 7$", answer: "1", duration: 50 },
+            { id: 25, question: "Hitunglah hasil dari: $(8 - 3) \\times (-4)$", answer: "-20", duration: 55 },
+            { id: 26, question: "Hitunglah hasil dari: $-10 + (12 \\div (-3))$", answer: "-14", duration: 55 },
+            { id: 27, question: "Hitunglah hasil dari: $-5 \\times 0 \\times (-8)$", answer: "0", duration: 35 },
+            { id: 28, question: "Hitunglah hasil dari: $-2 \\times (-3) \\times (-4)$", answer: "-24", duration: 55 },
+            { id: 29, question: "Hitunglah hasil dari: $(-3)^2 + 4$", answer: "13", duration: 50 },
+            { id: 30, question: "Hitunglah hasil dari: $-4^2 + 10$", answer: "-6", duration: 55 },
+            { id: 31, question: "Hitunglah hasil dari: $25 - 5 \\times 4 + 2$", answer: "7", duration: 60 },
+            { id: 32, question: "Hitunglah hasil dari: $40 \\div 5 \\times 2 + (-3)$", answer: "13", duration: 60 },
+            { id: 33, question: "Hitunglah hasil dari: $-12 + 24 \\div (-6) \\times 2$", answer: "-20", duration: 65 },
+            { id: 34, question: "Hitunglah hasil dari: $-8 \\times (-3) - 30 \\div (-5)$", answer: "30", duration: 65 },
+            { id: 35, question: "Hitunglah hasil dari: $18 + (-2) \\times (6 - 10)$", answer: "26", duration: 65 },
+
+            // Tingkat Tinggi & Kompleks Soal 36-60 (Waktu per soal: 70-90s)
+            { id: 36, question: "Hitunglah hasil dari: $-15 \\div (7 - 10) + (-8)$", answer: "-3", duration: 70 },
+            { id: 37, question: "Hitunglah hasil dari: $5 \\times (-4) + (-12) \\div 3$", answer: "-24", duration: 70 },
+            { id: 38, question: "Hitunglah hasil dari: $-30 - (-6) \\times 4 + 10$", answer: "4", duration: 70 },
+            { id: 39, question: "Hitunglah hasil dari: $(-2)^3 - (-5)$", answer: "-3", duration: 65 },
+            { id: 40, question: "Hitunglah hasil dari: $100 \\div (-5) \\div (-4)$", answer: "5", duration: 65 },
+            { id: 41, question: "Hitunglah hasil dari: $12 + (-3) \\times (8 - (-2))$", answer: "-18", duration: 75 },
+            { id: 42, question: "Hitunglah hasil dari: $-36 \\div (-4) - (-2) \\times (-7)$", answer: "-5", duration: 75 },
+            { id: 43, question: "Hitunglah hasil dari: $[15 - (-5)] \\div [-2 - 3]$", answer: "-4", duration: 75 },
+            { id: 44, question: "Hitunglah hasil dari: $-4 \\times (2 - 8) \\div (-3)$", answer: "-8", duration: 80 },
+            { id: 45, question: "Hitunglah hasil dari: $(-3)^2 \\times (-2) + 16 \\div (-4)$", answer: "-22", duration: 80 },
+            { id: 46, question: "Hitunglah hasil dari: $-50 + 5 \\times (-2)^3$", answer: "-90", duration: 80 },
+            { id: 47, question: "Hitunglah hasil dari: $(-12 + 4) \\times (-3 - 2)$", answer: "40", duration: 75 },
+            { id: 48, question: "Hitunglah hasil dari: $24 \\div [(-2) \\times 3] - (-7)$", answer: "3", duration: 80 },
+            { id: 49, question: "Hitunglah hasil dari: $-100 \\div (-25) + (-6) \\times (-5)$", answer: "34", duration: 80 },
+            { id: 50, question: "Hitunglah hasil dari: $18 - (-3) \\times 4 + (-20) \\div 5$", answer: "26", duration: 85 },
+            { id: 51, question: "Hitunglah hasil dari: \\{(-4) + (-8)\\} \\div (-2) - (-3)^2", answer: "-3", duration: 85 },
+            { id: 52, question: "Hitunglah hasil dari: $-2 \\times [(-5) + 3 \\times (-4)] - 10$", answer: "24", duration: 90 },
+            { id: 53, question: "Hitunglah hasil dari: \\frac{-30 + 10}{-2 - 3}", answer: "4", duration: 85 },
+            { id: 54, question: "Hitunglah hasil dari: \\frac{(-4) \\times (-6)}{-3 + 1}", answer: "-12", duration: 85 },
+            { id: 55, question: "Hitunglah hasil dari: $-3 \\times (-2)^3 - 4 \\times (-5)$", answer: "44", duration: 90 },
+            { id: 56, question: "Hitunglah hasil dari: [(-18 \\div 2) + (-3)] \\times [-4 - (-1)]", answer: "36", duration: 90 },
+            { id: 57, question: "Hitunglah hasil dari: $-5^2 + (-3)^3 - (-40)$", answer: "-12", duration: 90 },
+            { id: 58, question: "Hitunglah hasil dari: $100 \\div [(-2) \\times (-5)]^2$", answer: "1", duration: 85 },
+            { id: 59, question: "Hitunglah hasil dari: \\frac{(-8) \\times 3 - (-6)}{-3 - (-9)}", answer: "-3", duration: 90 },
+            { id: 60, question: "Hitunglah hasil dari: $-2 \\times \\{(-3) + [(-8) \\div (-2)]\\}$", answer: "-2", duration: 90 }
+        ];
+
+        // GLOBAL APP STATES
+        let currentQuestionIndex = 0;
+        let studentData = { name: "", class: "" };
+        let userAnswers = [];
+        let totalTimeSeconds = 60 * 60; // Total 60 menit
+        let totalTimerInterval = null;
+        let questionTimerInterval = null;
+        let questionTimeRemaining = 0;
+        let switchAppCount = 0;
+        let isQuizActive = false;
+
+        // CHECK SINGLE SUBMISSION RESTRICTION
+        window.addEventListener('DOMContentLoaded', () => {
+            if (localStorage.getItem("kuis_mencongak_completed") === "true") {
+                const prevData = JSON.parse(localStorage.getItem("kuis_mencongak_data") || "{}");
+                showModal("Akses Ditolak", `Siswa atas nama ${prevData.name || 'Anda'} (${prevData.class || ''}) sudah pernah mengerjakan kuis ini. Setiap anak hanya berkesempatan mengerjakan 1 kali.`);
+                document.getElementById('screen-start').innerHTML = `
+                    <div class="text-center py-8">
+                        <div class="inline-flex p-4 rounded-full bg-rose-500/20 text-rose-400 mb-4">
+                            <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                        </div>
+                        <h2 class="text-2xl font-bold text-white mb-2">Pengerjaan Selesai</h2>
+                        <p class="text-slate-400 text-sm max-w-md mx-auto">Anda telah mengirimkan jawaban sebelumnya pada perangkat ini. Ujian ini dikunci untuk mencegah pengerjaan berulang.</p>
+                    </div>
+                `;
+            }
+        });
+
+        // DETEKSI BERPINDAH TAB / APLIKASI
+        document.addEventListener("visibilitychange", function() {
+            if (isQuizActive && document.hidden) {
+                switchAppCount++;
+                console.warn(`Siswa berpindah aplikasi sebanyak ${switchAppCount} kali.`);
+            }
+        });
+
+        window.addEventListener("blur", function() {
+            if (isQuizActive) {
+                switchAppCount++;
+            }
+        });
+
+        // FUNGSI MULAI KUIS
+        function startQuiz() {
+            const nameInput = document.getElementById("student-name").value.trim();
+            const classInput = document.getElementById("student-class").value;
+
+            if (!nameInput) {
+                showModal("Identitas Belum Lengkap", "Silakan masukkan nama lengkap Anda sebelum memulai.");
+                return;
+            }
+            if (!classInput) {
+                showModal("Identitas Belum Lengkap", "Silakan pilih kelas Anda (X TO 2 atau X TO 3).");
+                return;
+            }
+
+            studentData.name = nameInput;
+            studentData.class = classInput;
+
+            document.getElementById("display-identity").innerText = `${studentData.name} (${studentData.class})`;
+            
+            // Switch Screens
+            document.getElementById("screen-start").classList.add("hidden");
+            document.getElementById("screen-quiz").classList.remove("hidden");
+
+            isQuizActive = true;
+
+            // Start Timers
+            startTotalTimer();
+            loadQuestion(0);
+        }
+
+        // TIMER UTAMA 60 MENIT
+        function startTotalTimer() {
+            updateTotalTimerDisplay();
+            totalTimerInterval = setInterval(() => {
+                totalTimeSeconds--;
+                updateTotalTimerDisplay();
+
+                if (totalTimeSeconds <= 0) {
+                    clearInterval(totalTimerInterval);
+                    finishQuiz("Waktu total (60 Menit) telah habis!");
+                }
+            }, 1000);
+        }
+
+        function updateTotalTimerDisplay() {
+            const mins = Math.floor(totalTimeSeconds / 60);
+            const secs = totalTimeSeconds % 60;
+            document.getElementById("total-timer").innerText = 
+                `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+        }
+
+        // LOAD SOAL SESUAI INDEX
+        function loadQuestion(index) {
+            if (index >= quizQuestions.length) {
+                finishQuiz();
+                return;
+            }
+
+            currentQuestionIndex = index;
+            const q = quizQuestions[index];
+
+            // Reset input
+            const answerInput = document.getElementById("user-answer-input");
+            answerInput.value = "";
+            answerInput.focus();
+
+            // Update Header Soal
+            document.getElementById("question-number-badge").innerText = `Soal ${index + 1} dari ${quizQuestions.length}`;
+            
+            // Render Soal MathJax
+            const qContainer = document.getElementById("question-text");
+            qContainer.innerHTML = q.question;
+            if (window.MathJax) {
+                MathJax.typesetPromise([qContainer]).catch((err) => console.log(err));
+            }
+
+            // Reset & Start Question Timer
+            startQuestionTimer(q.duration);
+        }
+
+        // TIMER OTOMATIS PER SOAL
+        function startQuestionTimer(durationSeconds) {
+            clearInterval(questionTimerInterval);
+            questionTimeRemaining = durationSeconds;
+            
+            const timerBar = document.getElementById("question-timer-bar");
+            const timerText = document.getElementById("question-timer-text");
+
+            const updateBar = () => {
+                const percentage = (questionTimeRemaining / durationSeconds) * 100;
+                timerBar.style.width = `${percentage}%`;
+                timerText.innerText = `Waktu Soal: ${questionTimeRemaining} detik`;
+            };
+
+            updateBar();
+
+            questionTimerInterval = setInterval(() => {
+                questionTimeRemaining--;
+                updateBar();
+
+                if (questionTimeRemaining <= 0) {
+                    clearInterval(questionTimerInterval);
+                    // Oromatis simpan status waktu habis / skipped
+                    saveAnswer("[Waktu Habis]");
+                    nextQuestion();
+                }
+            }, 1000);
+        }
+
+        // SUBMIT JAWABAN
+        function submitAnswer(e) {
+            e.preventDefault();
+            const val = document.getElementById("user-answer-input").value.trim();
+            saveAnswer(val === "" ? "[Diwakilkan/Kosong]" : val);
+            nextQuestion();
+        }
+
+        function skipQuestion() {
+            saveAnswer("[Dilewati]");
+            nextQuestion();
+        }
+
+        function saveAnswer(answerText) {
+            const currentQ = quizQuestions[currentQuestionIndex];
+            
+            // Pembersihan string perbandingan angka
+            const cleanUserAns = answerText.replace(/\s+/g, '').replace('$', '');
+            const cleanCorrectAns = currentQ.answer.replace(/\s+/g, '').replace('$', '');
+
+            const isCorrect = cleanUserAns === cleanCorrectAns;
+
+            userAnswers.push({
+                questionId: currentQ.id,
+                questionText: currentQ.question,
+                correctAns: currentQ.answer,
+                userAns: answerText,
+                isCorrect: isCorrect
+            });
+        }
+
+        function nextQuestion() {
+            clearInterval(questionTimerInterval);
+            if (currentQuestionIndex + 1 < quizQuestions.length) {
+                loadQuestion(currentQuestionIndex + 1);
+            } else {
+                finishQuiz();
+            }
+        }
+
+        // FINISH KUIS & PRESENT HASIL
+        function finishQuiz(reasonMessage = null) {
+            isQuizActive = false;
+            clearInterval(totalTimerInterval);
+            clearInterval(questionTimerInterval);
+
+            // Simpan Kunci di LocalStorage agar tidak bisa diulang
+            localStorage.setItem("kuis_mencongak_completed", "true");
+            localStorage.setItem("kuis_mencongak_data", JSON.stringify(studentData));
+
+            if (reasonMessage) {
+                showModal("Waktu Wajib Habis", reasonMessage);
+            }
+
+            // Hitung Skor
+            let correctCount = 0;
+            userAnswers.forEach(ans => {
+                if (ans.isCorrect) correctCount++;
+            });
+            let wrongCount = quizQuestions.length - correctCount;
+            let finalScore = Math.round((correctCount / quizQuestions.length) * 100);
+
+            // Tampilkan Layar Hasil
+            document.getElementById("screen-quiz").classList.add("hidden");
+            document.getElementById("screen-result").classList.remove("hidden");
+
+            document.getElementById("res-name").innerText = studentData.name;
+            document.getElementById("res-class").innerText = studentData.class;
+            document.getElementById("res-score").innerText = finalScore;
+            document.getElementById("res-correct").innerText = correctCount;
+            document.getElementById("res-wrong").innerText = wrongCount;
+
+            // Keterangan Kecurangan / Menutup Tab
+            const cheatBox = document.getElementById("cheat-warning-box");
+            if (switchAppCount > 0) {
+                cheatBox.className = "p-3.5 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs leading-relaxed";
+                cheatBox.innerHTML = `
+                    <div class="font-bold flex items-center gap-1.5 text-rose-400 mb-1">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                        Catatan Pengawasan Sistem:
+                    </div>
+                    Terdeteksi meninggalkan layar/membuka aplikasi lain sebanyak <strong class="underline">${switchAppCount} kali</strong> selama kuis berlangsung.
+                `;
+            } else {
+                cheatBox.className = "p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs leading-relaxed";
+                cheatBox.innerHTML = `
+                    <div class="font-bold flex items-center gap-1.5 text-emerald-400 mb-1">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        Integritas Pengerjaan Baik:
+                    </div>
+                    Siswa fokus selama mengerjakan kuis (Tidak ada indikasi keluar dari layar kuis).
+                `;
+            }
+
+            // Render Daftar Jawaban (Tanpa Pembahasan Sesuai Permintaan)
+            const listContainer = document.getElementById("answers-recap-list");
+            listContainer.innerHTML = "";
+
+            userAnswers.forEach((ans, idx) => {
+                const item = document.createElement("div");
+                item.className = `p-3 rounded-xl border flex items-center justify-between text-xs md:text-sm ${
+                    ans.isCorrect ? "bg-emerald-950/20 border-emerald-500/30" : "bg-rose-950/20 border-rose-500/30"
+                }`;
+                
+                item.innerHTML = `
+                    <div class="space-y-0.5">
+                        <span class="font-semibold text-slate-300">No. ${idx + 1} (${ans.questionText})</span>
+                        <div class="text-slate-400">Jawaban Anda: <span class="${ans.isCorrect ? 'text-emerald-400' : 'text-rose-400'} font-bold">${ans.userAns}</span></div>
+                    </div>
+                    <div class="text-right">
+                        ${
+                            ans.isCorrect 
+                            ? `<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">Benar</span>` 
+                            : `<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-rose-500/20 text-rose-400 border border-rose-500/30">Salah</span>`
+                        }
+                    </div>
+                `;
+                listContainer.appendChild(item);
+            });
+
+            if (window.MathJax) {
+                MathJax.typesetPromise([listContainer]).catch((err) => console.log(err));
+            }
+        }
+
+        // MODAL HELPER
+        function showModal(title, message) {
+            document.getElementById("modal-title").innerText = title;
+            document.getElementById("modal-message").innerText = message;
+            document.getElementById("modal-alert").classList.remove("hidden");
+        }
+
+        function closeModal() {
+            document.getElementById("modal-alert").classList.add("hidden");
+        }
+    </script>
+</body>
+</html>
